@@ -154,9 +154,10 @@ static NSError *YouTubeError(NSError *error, NSSet *regionsAllowed, NSString *la
 		[self finishWithError];
 		return;
 	}
+	self.requestType = requestType;
 	
 	XCDYouTubeLogDebug(@"Starting request: %@", url);
-	
+
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:10];
 	[request setValue:self.languageIdentifier forHTTPHeaderField:@"Accept-Language"];
 	[request setValue:[NSString stringWithFormat:@"https://youtube.com/watch?v=%@", self.videoIdentifier] forHTTPHeaderField:@"Referer"];
@@ -171,9 +172,7 @@ static NSError *YouTubeError(NSError *error, NSSet *regionsAllowed, NSString *la
 		else
 			[self handleConnectionSuccessWithData:data response:response requestType:requestType];
 	}];
-	[self.dataTask resume];
-	
-	self.requestType = requestType;
+	[self.dataTask resume];	
 }
 
 #pragma mark - Response Dispatch
