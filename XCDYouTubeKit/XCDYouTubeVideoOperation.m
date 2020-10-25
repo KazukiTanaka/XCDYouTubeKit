@@ -154,7 +154,6 @@ static NSError *YouTubeError(NSError *error, NSSet *regionsAllowed, NSString *la
 		[self finishWithError];
 		return;
 	}
-	self.requestType = requestType;
 	
 	XCDYouTubeLogDebug(@"Starting request: %@", url);
 
@@ -173,6 +172,8 @@ static NSError *YouTubeError(NSError *error, NSSet *regionsAllowed, NSString *la
 			[self handleConnectionSuccessWithData:data response:response requestType:requestType];
 	}];
 	[self.dataTask resume];	
+
+	self.requestType = requestType;
 }
 
 #pragma mark - Response Dispatch
